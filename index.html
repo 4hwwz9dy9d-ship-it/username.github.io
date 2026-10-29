@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="Coa8BB2K11VQemYYkiqPfX"><head data-page-node-id="FbJ3TIqfG93to2qntFiLJi">
+<meta charset="UTF-8" data-page-node-id="dulYE6ysnf741PbBBkK4v8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="c42cCpMeQngjAY54kCjUxV">
+<title data-page-node-id="iI7ASJiFqxRHr2Ouo8ePUl">给姐姐和弟弟的粤港澳治愈之旅 🌊</title>
+<style data-page-node-id="8F2UadTu8pmI969gpbNmyd">
+  :root {
+    --teal: #5fb3a1;
+    --teal-deep: #3d8b7d;
+    --coral: #f4a261;
+    --coral-deep: #e76f51;
+    --lavender: #a78bdb;
+    --sky: #7ec8e3;
+    --ink: #4a4a58;
+    --ink-light: #8a8a99;
+    --card: rgba(255,255,255,0.88);
+    --border: rgba(95,179,161,0.18);
+    --shadow: 0 8px 32px rgba(95,179,161,0.12);
+    --radius: 22px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.7;
+    color: var(--ink);
+    background: linear-gradient(160deg, #fdf9f3 0%, #eaf6f2 35%, #f5effb 70%, #fef3e7 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+  /* ===== 顶部进度条 ===== */
+  #progressBar {
+    position: fixed; top: 0; left: 0; height: 4px; width: 0%;
+    background: linear-gradient(90deg, var(--teal), var(--coral), var(--lavender));
+    z-index: 999; border-radius: 0 4px 4px 0; transition: width 0.15s;
+  }
+  .container { max-width: 880px; margin: 0 auto; padding: 0 16px 40px; }
+
+  /* ===== Hero ===== */
+  header {
+    text-align: center;
+    padding: 64px 20px 44px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-cloud { position: absolute; font-size: 2rem; opacity: 0.5; animation: float 6s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0);} 50% { transform: translateY(-12px);} }
+  header h1 {
+    font-size: 2rem;
+    color: var(--teal-deep);
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  header .sub { color: var(--ink-light); font-size: 1.02rem; }
+  .hero-badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+  .hero-badge {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 7px 18px;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    box-shadow: var(--shadow);
+    color: var(--teal-deep);
+    font-weight: 600;
+  }
+  /* 打卡进度环 */
+  .progress-wrap {
+    margin-top: 28px;
+    display: inline-flex; align-items: center; gap: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 10px 26px 10px 12px;
+    box-shadow: var(--shadow);
+  }
+  .ring { position: relative; width: 54px; height: 54px; }
+  .ring svg { transform: rotate(-90deg); }
+  .ring .num {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 700; color: var(--teal-deep);
+  }
+  .progress-wrap .label { text-align: left; font-size: 0.88rem; color: var(--ink-light); line-height: 1.4; }
+  .progress-wrap .label b { color: var(--teal-deep); display: block; font-size: 0.95rem; }
+
+  /* ===== 吸顶导航 ===== */
+  nav {
+    position: sticky; top: 10px; z-index: 100;
+    display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 12px;
+    margin: 0 auto 28px;
+    max-width: 840px;
+    box-shadow: var(--shadow);
+  }
+  nav a {
+    text-decoration: none;
+    color: var(--ink-light);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 6px 13px;
+    border-radius: 999px;
+    transition: all 0.25s;
+    white-space: nowrap;
+  }
+  nav a:hover { color: var(--teal-deep); background: rgba(95,179,161,0.12); }
+  nav a.active { color: #fff; background: linear-gradient(90deg, var(--teal), var(--teal-deep)); box-shadow: 0 4px 12px rgba(61,139,125,0.35); }
+
+  /* ===== 卡片 ===== */
+  .section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px;
+    margin-bottom: 22px;
+    box-shadow: var(--shadow);
+    scroll-margin-top: 90px;
+  }
+  .section > h2 {
+    font-size: 1.25rem;
+    color: var(--teal-deep);
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 16px;
+  }
+  .section > h2 .ico { font-size: 1.5rem; }
+
+  /* ===== 日程卡（可折叠）===== */
+  .day-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    scroll-margin-top: 90px;
+    transition: box-shadow 0.3s;
+  }
+  .day-card:hover { box-shadow: 0 12px 40px rgba(95,179,161,0.2); }
+  .day-header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 18px 22px;
+    cursor: pointer;
+    user-select: none;
+    background: linear-gradient(100deg, rgba(95,179,161,0.14), rgba(244,162,97,0.10));
+  }
+  .day-header .d-emoji { font-size: 1.7rem; }
+  .day-header .d-title { flex: 1; }
+  .day-header .d-title b { display: block; font-size: 1.05rem; color: var(--ink); }
+  .day-header .d-title span { font-size: 0.82rem; color: var(--ink-light); }
+  .day-header .d-who {
+    font-size: 0.72rem; font-weight: 700; padding: 4px 11px; border-radius: 999px; white-space: nowrap;
+  }
+  .who-all { background: #e3f2ec; color: var(--teal-deep); }
+  .who-solo { background: #f3ecfc; color: #7c5cbf; }
+  .arrow {
+    font-size: 0.85rem; color: var(--ink-light);
+    transition: transform 0.35s;
+  }
+  .day-card.open .arrow { transform: rotate(180deg); }
+  .day-body {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+  .day-card.open .day-body { max-height: 2400px; }
+  .day-body-inner { padding: 8px 22px 22px; }
+  .day-body h4 {
+    color: var(--coral-deep);
+    margin: 14px 0 8px;
+    font-size: 1rem;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    padding: 2px 9px;
+    border-radius: 999px;
+    margin-left: 5px;
+    font-weight: 600;
+    vertical-align: 1px;
+  }
+  .tag-free { background: #e3f2ec; color: #2d7a68; }
+  .tag-high { background: #fdeeda; color: #c47b2a; }
+  .tag-view { background: #e3f0fa; color: #3a7ca5; }
+  .tag-hard { background: #fbe3e0; color: #c0564a; }
+  .tag-nice { background: #f3ecfc; color: #7c5cbf; }
+
+  /* 时间轴 */
+  .timeline { border-left: 3px solid rgba(95,179,161,0.4); margin: 12px 0 12px 8px; padding-left: 20px; }
+  .timeline li { list-style: none; position: relative; margin-bottom: 12px; }
+  .timeline li::before {
+    content: ""; position: absolute; left: -27px; top: 8px;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--teal); border: 2.5px solid #fff;
+    box-shadow: 0 0 0 2px rgba(95,179,161,0.5);
+  }
+  .timeline b { color: var(--teal-deep); }
+
+  /* 打卡行 */
+  .check-li { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+  .check-li input { display: none; }
+  .check-li .box {
+    flex: 0 0 auto; width: 21px; height: 21px; margin-top: 4px;
+    border: 2px solid var(--teal); border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; color: transparent;
+    transition: all 0.25s;
+  }
+  .check-li input:checked + .box { background: var(--teal); color: #fff; transform: scale(1.08); }
+  .check-li input:checked ~ .txt { color: var(--ink-light); text-decoration: line-through; text-decoration-color: rgba(244,162,97,0.6); }
+
+  .tip {
+    background: linear-gradient(90deg, rgba(126,200,227,0.14), rgba(126,200,227,0.05));
+    border-left: 4px solid var(--sky);
+    padding: 12px 16px;
+    border-radius: 0 14px 14px 0;
+    margin: 14px 0;
+    font-size: 0.92rem;
+  }
+  .tip-warn {
+    background: linear-gradient(90deg, rgba(244,162,97,0.16), rgba(244,162,97,0.05));
+    border-left-color: var(--coral);
+  }
+  .daily-cost {
+    background: linear-gradient(90deg, rgba(167,139,219,0.13), rgba(167,139,219,0.04));
+    border-radius: 14px;
+    padding: 11px 16px;
+    margin-top: 12px;
+    font-size: 0.93rem;
+    color: #6b4fa8;
+    font-weight: 600;
+  }
+
+  /* 表格 */
+  table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 12px 0; font-size: 0.88rem; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); }
+  th, td { padding: 9px 12px; text-align: left; }
+  th { background: linear-gradient(90deg, rgba(95,179,161,0.16), rgba(95,179,161,0.08)); color: var(--teal-deep); font-weight: 700; }
+  tr:nth-child(even) td { background: rgba(95,179,161,0.045); }
+
+  /* 装备清单 */
+  .gear-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; margin-top: 12px; }
+  .gear-item {
+    background: rgba(255,255,255,0.75);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 11px 14px;
+    display: flex; gap: 10px; align-items: flex-start;
+    cursor: pointer; transition: all 0.25s;
+    font-size: 0.9rem;
+  }
+  .gear-item:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+  .gear-item input { display: none; }
+  .gear-item .box {
+    flex: 0 0 auto; width: 20px; height: 20px; margin-top: 3px;
+    border: 2px solid var(--coral); border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; color: transparent; transition: all 0.25s;
+  }
+  .gear-item input:checked + .box { background: var(--coral); color: #fff; }
+  .gear-item input:checked ~ .g-txt { color: var(--ink-light); text-decoration: line-through; }
+
+  .cost-box { background: rgba(255,255,255,0.7); border-radius: 16px; padding: 18px; border: 1px dashed rgba(95,179,161,0.4); }
+  .cost-box ul { margin: 10px 0 0 18px; }
+
+  /* 回到顶部 */
+  #toTop {
+    position: fixed; right: 20px; bottom: 24px;
+    width: 46px; height: 46px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal), var(--teal-deep));
+    color: #fff; font-size: 1.15rem;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; box-shadow: 0 8px 24px rgba(61,139,125,0.4);
+    opacity: 0; pointer-events: none; transition: all 0.3s;
+    border: none; z-index: 200;
+  }
+  #toTop.show { opacity: 1; pointer-events: auto; }
+  #toTop:hover { transform: translateY(-3px); }
+
+  /* 打卡小动画 */
+  .pop { position: fixed; z-index: 500; font-size: 1.4rem; pointer-events: none; animation: popUp 0.9s ease-out forwards; }
+  @keyframes popUp {
+    0% { opacity: 0; transform: translateY(0) scale(0.6); }
+    25% { opacity: 1; transform: translateY(-14px) scale(1.15); }
+    100% { opacity: 0; transform: translateY(-52px) scale(1); }
+  }
+
+  footer { text-align: center; padding: 30px 16px 50px; color: var(--ink-light); font-size: 0.88rem; }
+  footer .heart { color: var(--coral-deep); }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.5rem; }
+    .section { padding: 18px; }
+    nav a { padding: 5px 10px; font-size: 0.8rem; }
+    table { font-size: 0.78rem; }
+    th, td { padding: 6px 8px; }
+  }
+</style>
+<style id="__dm_no_drag_style__">* { -webkit-user-drag: none !important; }</style><style id="__dm_bindable_badge_style__">[data-sp-bindable="database"]{outline:1px dashed #0088ff;outline-offset:2px;border-radius:4px;}[data-sp-bindable="database"] *{pointer-events:none !important;transition:none !important;animation:none !important;}[data-sp-bindable="database"]{transition:none !important;animation:none !important;}</style></head>
+<body data-page-node-id="ZhrctrKllyenTG3rg4aUAI" style="">
+<div id="progressBar" data-page-node-id="HgZOnzkPJa83qcriSkPRIu"></div>
+
+<header data-page-node-id="u5vAE45lfc9Sata0Zm0cAI">
+  <span class="hero-cloud" style="left:12%;top:60px;" data-page-node-id="CCZ83PxLrpksUACpKr9UCB">☁️</span>
+  <span class="hero-cloud" style="right:14%;top:110px;animation-delay:1.5s;" data-page-node-id="rXyflHAHxDD0dZFXavf4Tk">🌤️</span>
+  <span class="hero-cloud" style="right:28%;top:40px;animation-delay:3s;font-size:1.4rem;" data-page-node-id="KxMUOJWoNerulbBHVBZqNk">✨</span>
+  <h1 data-page-node-id="wKudpx97lbbb3vKaXlPfr6" style="white-space: pre-wrap;">粤港澳治愈之旅​</h1>
+  <p class="sub" data-page-node-id="rW0AzjmaVdeKa0Mwk0YKPI">11月3日 - 11月9日 · 七天 · 深圳 → 香港 → 珠海 → 澳门</p>
+  <div class="hero-badges" data-page-node-id="q9eQOD8JSEQKinBqB65P9a">
+    <span class="hero-badge" data-page-node-id="hwkblDsGrkbxikHhiNMPlC">💰 人均 2000-2500（不含吃）</span>
+    <span class="hero-badge" data-page-node-id="e1RBwhnlG3NrirDrAwKHzE">🆓 免费好景点优先</span>
+    <span class="hero-badge" data-page-node-id="4lu0ua4cQaBM3rxX0qcves">📸 出片率拉满</span>
+  </div>
+  <div class="progress-wrap" data-page-node-id="LEcZC8BzSlYZoct2gqeSPR">
+    <div class="ring" data-page-node-id="HJ98p84IUFNurA3ODAagfg">
+      <svg width="54" height="54" data-page-node-id="30yFBcGDRelzCUC1x0w34S">
+        <circle cx="27" cy="27" r="23" fill="none" stroke="#e8f0ee" stroke-width="6" data-page-node-id="2rOGG1yPQpir2esglOtanj"></circle>
+        <circle id="ringBar" cx="27" cy="27" r="23" fill="none" stroke="url(#g1)" stroke-width="6" stroke-linecap="round" stroke-dasharray="144.5" stroke-dashoffset="144.5" style="transition: stroke-dashoffset 0.5s; stroke-dashoffset: 144.5;" data-page-node-id="8cZvg2qGlHJWixehtJIzZh"></circle>
+        <defs data-page-node-id="ytktuS0WjIJSgEaiLME3dP"><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1" data-page-node-id="bybN1DiSmGGAZUk9cqHevA">
+          <stop offset="0%" stop-color="#5fb3a1" data-page-node-id="R78ClQqKp8BGYysGF88oEs"></stop><stop offset="100%" stop-color="#f4a261" data-page-node-id="aCpdr1cKTpYk6ulXjTT7Tk"></stop>
+        </linearGradient></defs>
+      </svg>
+      <span class="num" id="ringNum" data-page-node-id="uBh8PJbIt897oXfvmepbkb">0%</span>
+    </div>
+    <div class="label" data-page-node-id="O8WOkIB1xjS8ogbwabmDnk"><b data-page-node-id="ZCWApKALRaR8ztB7hNdppH">旅程打卡进度</b><span id="checkCount" data-page-node-id="OLM2773eOminY6yx6O0iTn">已勾选 0 项 · 勾过的会自动记住哦</span></div>
+  </div>
+</header>
+
+<div class="container" data-page-node-id="6lTl8E0QNoMWTftXLjfTW9">
+
+  <!-- 吸顶导航 -->
+  <nav id="nav" data-page-node-id="BeLwfZEqEnItUctRIaelfo">
+    <a href="#day1" data-page-node-id="FeJPoSDp1gaycF8abABWmZ">🌊 D1 深圳</a>
+    <a href="#day2" data-page-node-id="oqltEjxQmm1IGqxhSJhtbN">🏙️ D2 维港</a>
+    <a href="#day3" data-page-node-id="FfXq2G1A7Afd9Vy7TFZWpa">🏮 D3 市井</a>
+    <a href="#day4" data-page-node-id="AlLzSFxl3ZDxmxUubqESyZ">🚲 D4 探索</a>
+    <a href="#day5" data-page-node-id="jG8C0emDFzi707gfiDRDsp">🥾 D5 麦径</a>
+    <a href="#day6" data-page-node-id="Lvat7pwNLYHiliXzGfJkqP">🎡 D6 澳门</a>
+    <a href="#day7" data-page-node-id="wFiKp8bsMEJ7J0IDwiWJjT">🌅 D7 珠海</a>
+    <a href="#gear" data-page-node-id="t5zFrKgfHSEa1r43lQngai">🎒 装备</a>
+    <a href="#budget" data-page-node-id="1leN7TGsYSJFMyOus5EVZk">💰 预算</a>
+  </nav>
+
+  <!-- 使用说明 -->
+  <div class="section" data-page-node-id="8nRVJSJ2EDFLjwsahqB1uk">
+    <h2 data-page-node-id="j73IxLEGVWplJKKCM8Fx5p"><span class="ico" data-page-node-id="ExnVOnc1MJYCk8wMfSzcAJ">📖</span>先看这里 · 攻略怎么用</h2>
+    <ul style="padding-left:18px;" data-page-node-id="xADaLUBhKMyiJE98d5dRnB">
+      <li data-page-node-id="JIw1gnUgUnmqeu6ZDCoJQB">🌿 <strong data-page-node-id="Ngc7GNqebGdRhNkgEI3btE">全员同行日</strong>：D1 深圳、D2 维港、D5 麦理浩径、D6 澳门、D7 珠海——大家一起去</li>
+      <li data-page-node-id="SV8wguGT26HNU07BgxFXZ6">🚶 <strong data-page-node-id="B5iZpVcEIi6d8Q9InfEafK">自由探索日</strong>：D3、D4 是<strong data-page-node-id="mk6zAmTB1SkbUCKp2uN5e0">你俩的专属探索时间</strong>，路线已经排好，照着时间轴走就行</li>
+      <li data-page-node-id="zOSAoUNmmcHyuIZTA2TbiQ">✅ 每个装备前面都有小方框，<strong data-page-node-id="iSXY2UjJ50PZbbtDt46Y1i">备好的就打勾</strong>，关掉网页也不会丢</li>
+      <li data-page-node-id="XUfSXOQFF9eOL1okc9oTkp">🔝 点日期那一条可以<strong data-page-node-id="dfAEYZ6Kn6lpKjZhGDHOb2">折叠/展开</strong>每天的内容</li>
+    </ul>
+    <div class="tip" data-page-node-id="ll5GnO0kKwYIzAr9xQMyIv">💡 提前准备：港澳通行证 + 香港和澳门各一次签注；微信/支付宝三地基本通用，香港备少量港币；到了香港第一件事买<strong data-page-node-id="2bHpbG0xRQE04E9Rmg2eBy">八达通（旅客版约HK$39，每人充200-300）</strong>，之后全程刷它。</div>
+  </div>
+
+  <!-- Day 1 -->
+  <div class="day-card open" id="day1" data-page-node-id="4qHID1ZgVClv695XTJkPoG">
+    <div class="day-header" onclick="toggleDay('day1')" data-page-node-id="fswftSJ8vtVTYnvEFwhO6Q">
+      <span class="d-emoji" data-page-node-id="Fv8SYlJF7svBw0IxfMLYH8">🌊</span>
+      <div class="d-title" data-page-node-id="kX8PobXT2Yte523NUcxXeX"><b data-page-node-id="6xO3d513rEeeCaE0UIbHlj">Day 1 · 11月3日（周二）深圳 · 海边 + 城市全景</b><span data-page-node-id="1cgGnxM44jRwGhj2BOdOyz">旅程第一天，先热热身</span></div>
+      <span class="d-who who-all" data-page-node-id="FXfjDgkAxLiAzgiLTGxeUg">全员同行</span>
+      <span class="arrow" data-page-node-id="kdbA4F6l2bssmT35BXmmG2">▼</span>
+    </div>
+    <div class="day-body" data-page-node-id="MhHFc42cD5KAQdYbP4NcdV"><div class="day-body-inner" data-page-node-id="B45GJtOO7QuXrmbnD732N4">
+      <h4 data-page-node-id="XdPaJ7we4qMrMvuYMFgnWk">🏔️ 莲花山公园 <span class="tag tag-free" data-page-node-id="CZ1vimrq8FnB45to7kfdWf">免费</span><span class="tag tag-view" data-page-node-id="cVdMbd73egHcuLJIRBPLHx">好看</span></h4>
+      <ul class="timeline" data-page-node-id="b65xUfX1WmeQROQXCBOaH5">
+        <li data-page-node-id="hWwTF5tU1HtOrEA9oxo19q"><b data-page-node-id="AKJVk9oK0UFAY2gucM8FVa">10:00-13:00</b> 地铁4号线<strong data-page-node-id="uT6xjTgVXss1xm3dFADiCJ">少年宫站F1出口</strong>，邓小平雕像 + 山顶看深圳CBD全景（想省力可以坐观光车，单次8元）</li>
+      </ul>
+      <h4 data-page-node-id="MZGaCEAY5KY4T1PxKi0iFo">🌇 深圳湾公园 / 欢乐港湾 <span class="tag tag-free" data-page-node-id="NSbTkMIPrUZUL0n5ybJXgG">免费</span><span class="tag tag-view" data-page-node-id="3hrGzjEqXQGygPe84M83Wm">好看</span></h4>
+      <ul class="timeline" data-page-node-id="8J2Fj14eHo75TU7RKDZTpL">
+        <li data-page-node-id="tDNAbEHWel0xEMluQ7swm5"><b data-page-node-id="kXL4CkxQWmGE5ZQcb5DYkJ">14:30-18:30</b> 地铁9号线<strong data-page-node-id="qsRo2CKjBo5f9HK8GyGlqB">深圳湾公园站D2出口</strong>，海边散步、等一场日落，晚上的欢乐港湾灯光也很美</li>
+      </ul>
+      <div class="tip" data-page-node-id="hdzD65mewcJM9Vc3uPdU6Z">🌙 今晚住南山后海或福田的经济酒店，明天一早过关方便。</div>
+      <div class="daily-cost" data-page-node-id="bVyrqcqp3Dos8fICCJgJqn">当日参考（不含吃）：地铁约20元 + 可选观光车8元 + 住宿180元 ≈ <strong data-page-node-id="Cl9gDCf8VBLsQqSiEFzIhj">210元</strong></div>
+    </div></div>
+  </div>
+
+  <!-- Day 2 -->
+  <div class="day-card" id="day2" data-page-node-id="kxnD5zsjp5inB4XnXl2mhz">
+    <div class="day-header" onclick="toggleDay('day2')" data-page-node-id="n3cOFx7zNhyYuiKNPxDnqx">
+      <span class="d-emoji" data-page-node-id="iHS7TlnaLuOmzKIZGXhfCX">🏙️</span>
+      <div class="d-title" data-page-node-id="AWQ8im7gnsWoKzgYxKX6Gu"><b data-page-node-id="tuwjbFuez8C79DIBSQ48XI">Day 2 · 11月4日（周三）过关香港 · 维港经典日</b><span data-page-node-id="4YUVoFV8t0acPlBqfl37Nn">今天把香港最经典的一网打尽</span></div>
+      <span class="d-who who-all" data-page-node-id="ZjiV0yvl0CXDRyn2BErH9U">全员同行</span>
+      <span class="arrow" data-page-node-id="H1leVVRCrWVaBHHKP6Q8Cx">▼</span>
+    </div>
+    <div class="day-body" data-page-node-id="7JrAD3UIVa3GwkrzzCb0Ti"><div class="day-body-inner" data-page-node-id="s7jz4oaAZYso9laSGUN7B6">
+      <h4 data-page-node-id="rsjhr7jHIu9NmfOSqMSTp4">⛴️ 上午：过关 + 天星小轮 <span class="tag tag-free" data-page-node-id="DHVKDlOD2rXsnC5Daeanfd">几块钱</span><span class="tag tag-high" data-page-node-id="9DpqUapgkrXwLc812nql9w">好玩</span></h4>
+      <ul class="timeline" data-page-node-id="tyX528DX2JuU46L6LsGOZf">
+        <li data-page-node-id="2Fj25PQ15d6EoxscZmqSJw"><b data-page-node-id="GB8E3WtjaF055w5DEhlR9r">08:30-10:30</b> 福田或罗湖口岸过关（地铁+东铁，约50-80元），住尖沙咀附近最方便</li>
+        <li data-page-node-id="DN8IpjWOPOQ4CoBv7mEQ9L"><b data-page-node-id="JIMH1a61BRLhY4beOprVL5">11:00-12:00</b> <strong data-page-node-id="kSGo0MxZ66IxXRwaQMo9tV">天星小轮</strong> 尖沙咀↔中环，维港经典体验，几块钱的百年渡轮</li>
+      </ul>
+      <h4 data-page-node-id="SLohJaTpUFEiO5uDmvDLWn">🚡 下午：太平山顶 <span class="tag tag-high" data-page-node-id="FZSFwGzS7BTtXGUOV83ale">性价比高</span><span class="tag tag-view" data-page-node-id="8yFlEPfHZ8pdOQCmfyvaAx">好看</span></h4>
+      <ul class="timeline" data-page-node-id="X3fzqpAPp1zrNdf7VCormA">
+        <li data-page-node-id="mjESZGKEOkAfGC7hOQtSaT"><b data-page-node-id="72iDzsojjUbEvJAZGXCl2j">13:00-16:00</b> 缆车+凌霄阁摩天台428套票约HK$182（≈170元），<strong data-page-node-id="QNP09Ozb36O7VRnJrtmur0">建议提前网上订票避开排队</strong></li>
+      </ul>
+      <h4 data-page-node-id="TPGQGR93utzmwcBXci6e0b">🌃 晚上：星光大道 + 尖沙咀海滨 <span class="tag tag-free" data-page-node-id="pdlfyJHnZ88ilBihsSSba6">免费</span><span class="tag tag-view" data-page-node-id="WCVt7xPEDrAMED6hk6Saxp">好看</span></h4>
+      <ul class="timeline" data-page-node-id="Ah2GvgyQDmYO8o9bIwaB7a">
+        <li data-page-node-id="UZN2pn5LqsFTNTI6zX0Nmw"><b data-page-node-id="W1Ey9NStBFJF6JYGfLeiwh">17:00-20:30</b> 夜景最出片的一段海滨，<strong data-page-node-id="z86TxTbXWPdCXocmuGPW8b">20:00 有「幻彩咏香江」灯光秀</strong></li>
+      </ul>
+      <div class="tip" data-page-node-id="CPAMJYMnRU3FgilFsX0xwH">💳 今天记得买好八达通并充值，接下来几天全靠它。</div>
+      <div class="daily-cost" data-page-node-id="sArqRrwBNwQIj85t9WWG6T">当日参考（不含吃）：过关+本地交通约100元 + 山顶套票170元 + 住宿450元 ≈ <strong data-page-node-id="FOYRg5oa51LEzv0JqSxJYr">720元</strong></div>
+    </div></div>
+  </div>
+
+  <!-- Day 3 -->
+  <div class="day-card" id="day3" data-page-node-id="WVHFIreF1xYU2QwsKeemAy">
+    <div class="day-header" onclick="toggleDay('day3')" data-page-node-id="WTmEH9uTrXnWw8AUzvpVIi">
+      <span class="d-emoji" data-page-node-id="PPdBHBuPXtJvYa3iUhnImq">🏮</span>
+      <div class="d-title" data-page-node-id="vehZvLTzNxlrD66DDTkQH8"><b data-page-node-id="HZGTDaoWaORIFjl0Of1GTy">Day 3 · 11月5日（周四）自由探索 A · 市井香港一日</b><span data-page-node-id="mbec6BJU9WcnMEixZxR7TG">属于你俩的一天，慢慢逛</span></div>
+      <span class="d-who who-solo" data-page-node-id="FHP9XsfMzwobK9oCUWjgub">自由探索</span>
+      <span class="arrow" data-page-node-id="X4HGTHz0wQ4raiBNlG5f67">▼</span>
+    </div>
+    <div class="day-body" data-page-node-id="k3qHAc1hd8stK0DfSVRFLd"><div class="day-body-inner" data-page-node-id="zFdnAholUZYel8sifLyey6">
+      <p style="color:var(--ink-light);font-size:0.92rem;" data-page-node-id="DgHXh1jt5iv6fooK4rETxx">全程刷八达通+步行，跟着时间轴走就行，晚上 22:00 回酒店和大家会合。</p>
+      <h4 data-page-node-id="0ZXjSsAKb3HLNKWQiXW4p1">🕯️ 09:30 · 黄大仙祠 <span class="tag tag-free" data-page-node-id="MrN11V0ZAw1jl4LrQ5RrJw">免费</span></h4>
+      <ul class="timeline" data-page-node-id="ChwaOPJZYsRRSC8dsLlDZF"><li data-page-node-id="LvOWWlYXaNCIN0JopTD9bO">地铁<strong data-page-node-id="V19TYlVaBjN25Q8TLlshcw">黄大仙站B2出口</strong>，香火最旺的庙，进去求个好签</li></ul>
+      <h4 data-page-node-id="HCcUGCDkbXKehlSa2COEbA">🛍️ 11:00-14:00 · 旺角 <span class="tag tag-free" data-page-node-id="XRgR0GOuJ0EEepFRKNcegs">免费</span><span class="tag tag-high" data-page-node-id="1IXGo0seQ7w5zV47hVewRD">好玩</span></h4>
+      <ul class="timeline" data-page-node-id="IAaDd9N165zUFWLE9R7HZ2"><li data-page-node-id="0YXCDhcdwASGOZ8oeWTmTy">地铁<strong data-page-node-id="taOHrPU7BzD8Ct4QCVFjbx">旺角站</strong>，女人街、波鞋街、金鱼街一路逛吃，午餐街边随便解决</li></ul>
+      <h4 data-page-node-id="sDpNMta3Vwk2cjZ7UI33Jo">📷 14:30-16:00 · 深水埗</h4>
+      <ul class="timeline" data-page-node-id="xTBrFAADsoOtSCS42HZTui"><li data-page-node-id="c6oJhERsc6uxg65i6MBmYm">地铁<strong data-page-node-id="4YXJgEvpyaGUkrwxcvsjcu">深水埗站</strong>，鸭寮街、桂林街——全香港最接地气的老街区，随手一拍都是港片感</li></ul>
+      <h4 data-page-node-id="7OnbkwewVZHoavXKMUJkBs">🛗 16:30-18:00 · 中环 <span class="tag tag-free" data-page-node-id="oRAzo54t6A5A3vXXISPHiX">免费</span><span class="tag tag-nice" data-page-node-id="zx1Pi1TPUOtE8ULBnTCV4n">有趣</span></h4>
+      <ul class="timeline" data-page-node-id="VLMcrTyPWG4ryCndj8LJGU"><li data-page-node-id="2utGegoASSWkuRh5zQhh3m">地铁<strong data-page-node-id="hJ2w57vFQFOPSLbTiknWqz">中环站</strong>，半山自动扶梯 + 中环街市（有空调有座位，歇脚好地方）</li></ul>
+      <h4 data-page-node-id="FBZg1A9LD02dEY8qBxLY2p">🏮 18:30-22:00 · 天星小轮回尖沙咀 → 庙街夜市 <span class="tag tag-free" data-page-node-id="3JOnFqHrrrEVAz03ty42aU">免费</span><span class="tag tag-high" data-page-node-id="kVwNBZpyTzrugxvEpBgAhJ">好玩</span></h4>
+      <ul class="timeline" data-page-node-id="N71K01Q8ZhEwGXusUIsEkC">
+        <li data-page-node-id="Zz7q5hKrSUBKf7pnM12gFG"><b data-page-node-id="sJdXZURzRyteOsYElDmE2D">18:30</b> 中环码头坐天星小轮回尖沙咀（刷八达通）</li>
+        <li data-page-node-id="4mQ53skp7PC4i7PHOk2RHE"><b data-page-node-id="lUylsrzZtPqyulqkTR62DE">19:00-22:00</b> <strong data-page-node-id="L0bHVWQpksrCWoKOI6eKs5">庙街夜市</strong>（佐敦站A出口），烟火气满分，小吃随便吃</li>
+        <li data-page-node-id="hmKcI6pWKHr8mtdWxjlWHe"><b data-page-node-id="Kq4x5TrfSUOE0mD6t8GuRs">22:00</b> 地铁回酒店，和大家会合</li>
+      </ul>
+      <div class="tip tip-warn" data-page-node-id="fAAqrNoLeIQZfOAEtk96DX">🧭 <strong data-page-node-id="D52qKsI2tWQcBZKcqh7emx">小贴士</strong>：香港地铁全是「站名+出口编号」，跟着地图App走不会丢；今天开销基本只有交通+吃喝；有任何事随时打电话。</div>
+      <div class="daily-cost" data-page-node-id="XbXUaR7BPkKEtIpyGPnscp">当日参考（不含吃）：八达通交通约60-80元/人 ≈ <strong data-page-node-id="fV7kriGEdCCDjlrLIpOaXW">80元/人</strong></div>
+    </div></div>
+  </div>
+
+  <!-- Day 4 -->
+  <div class="day-card" id="day4" data-page-node-id="5q1pxJAxU9xsmLboJk3r6d">
+    <div class="day-header" onclick="toggleDay('day4')" data-page-node-id="cpLwISPMwmqmKAWDeZQI75">
+      <span class="d-emoji" data-page-node-id="vSntzfYUxnpFfOMCTdyzP4">🚲</span>
+      <div class="d-title" data-page-node-id="miPeW3QzwVtfsDUTEpFQRv"><b data-page-node-id="PUo34fBuumvCAVPgwmNQyf">Day 4 · 11月6日（周五）自由探索 B · 二选一</b><span data-page-node-id="9qYr2k6IXAADr73666fyXu">按今天的体力选一个</span></div>
+      <span class="d-who who-solo" data-page-node-id="1G82kYV4Vpd9jHXyC016H6">自由探索</span>
+      <span class="arrow" data-page-node-id="XDPKwHIOLzskeQLgkd77JE">▼</span>
+    </div>
+    <div class="day-body" data-page-node-id="2Adhj2zBJDDQkW5mdwdrXC"><div class="day-body-inner" data-page-node-id="guTqmF89eHyoqfe665O2lO">
+      <h4 data-page-node-id="bqLhoPDAEY6smIk2aQnarK">☕ 方案一（轻松版）：港岛文艺一天</h4>
+      <ul class="timeline" data-page-node-id="SAC00bES6zgde6QZckhI5F">
+        <li data-page-node-id="v99jBkLnhHkCpczzFqTrOK"><b data-page-node-id="hMkXZw1uIRttFoOl5boD1E">10:00</b> <strong data-page-node-id="RrXTDDiFEQpVY3ADY8z136">西环坚尼地城</strong>（港岛线坚尼地城站C出口）海旁咖啡+海景，小众出片</li>
+        <li data-page-node-id="tc7A3YfgiDCDc8SWbJjxWO"><b data-page-node-id="ULyY9OKqAeT06AwGMNEHGG">12:00</b> 叮叮车横穿港岛 <span class="tag tag-high" data-page-node-id="fnE5W1aCq017wCbC9aXTVA">HK$3超值</span><span class="tag tag-view" data-page-node-id="RsWhrnyHhgQdpzo1AMm2Uw">好看</span>，上层前排就是观光位</li>
+        <li data-page-node-id="PpXLuSHvtcmUsoFcooPwdZ"><b data-page-node-id="fPY9eTGf0XcIx7tWgJr2q3">14:00</b> 铜锣湾 → 湾仔蓝屋建筑群、星街小区文艺街区</li>
+        <li data-page-node-id="CWigvIvky8Gp1Hnqcm9UFr"><b data-page-node-id="GTsQ4JUWyVUXvxAGnwrmFb">16:00</b> 想再看一次维港，走<strong data-page-node-id="8qswDFbD3DVFs1778bbyiq">太平山顶卢吉道</strong>（免费观景步道，不用买票）</li>
+        <li data-page-node-id="nfYER0CLOkTnahluBVtG9H"><b data-page-node-id="STcaJxTt74X8vKXQUtkISr">18:30</b> 回尖沙咀海港城，和大家会合吃晚饭</li>
+      </ul>
+      <h4 data-page-node-id="KkjTcMghDvEGYTjTHnkGmP">🏝️ 方案二（活力版）：西贡轻徒步热身</h4>
+      <ul class="timeline" data-page-node-id="DVUiVAjL7u5ld27sfrtipf">
+        <li data-page-node-id="re23ccopC0jnETDBWihJEl"><b data-page-node-id="GnQUk7oSD7E6KQCv2bfdcE">09:30</b> 到西贡市中心，走<strong data-page-node-id="xH3XfXW7ppW7E4r1B6ZGUk">桥咀洲</strong>短线（连岛沙洲，约2-3小时）<span class="tag tag-view" data-page-node-id="96kpROBdYU3nspGFRmrdP4">好看</span><span class="tag tag-free" data-page-node-id="iuCJyCTFABazsRhsDpFoaM">免费</span></li>
+        <li data-page-node-id="iKZNPEbMPHflvZBRDdy6kh"><b data-page-node-id="rNev6lInsjxWpTF0OWLDgL">15:00</b> 西贡海鲜街海边发呆，坐巴士回市区</li>
+        <li data-page-node-id="BKquJph3ohYOCZiWaYfbCx"><b data-page-node-id="Vd3q0ICwJAPaWYJBFP5Krm">晚上</b> 回尖沙咀会合，<strong data-page-node-id="lVLVYbSa982Prtn2ZfRdjp">早睡</strong>——明天麦理浩径要早起！</li>
+      </ul>
+      <div class="tip tip-warn" data-page-node-id="pu8IGAtdBPgtVVlBtozikw">⚠️ 桥咀洲要提前查好<strong data-page-node-id="czRG7Nz33vYWWUG25lDEun">当日涨潮时间</strong>（涨潮时连岛沙洲会被淹没）；明天麦径强度不小，方案二别走太狠。</div>
+      <div class="daily-cost" data-page-node-id="XfNtELNvBXkqRCqg1YuLaG">当日参考（不含吃）：交通约60-100元/人 ≈ <strong data-page-node-id="ngcNV6AMCDDVLvBXz0RP4y">100元/人</strong></div>
+    </div></div>
+  </div>
+
+  <!-- Day 5 -->
+  <div class="day-card" id="day5" data-page-node-id="AX0eATEJ8OKOhZOfSqjOTn">
+    <div class="day-header" onclick="toggleDay('day5')" data-page-node-id="qHWYtzEL5s0WsAyGi8fRUs">
+      <span class="d-emoji" data-page-node-id="NUZHi68GcAHCqsjCuTLyHn">🥾</span>
+      <div class="d-title" data-page-node-id="X3xJuNa8NIJKtMM5RxxKH0"><b data-page-node-id="qAEcXiRGYF5FFBFMDKQGRq">Day 5 · 11月7日（周六）麦理浩径精华日</b><span data-page-node-id="41zYiob8GPADjFsQ7LdZhU">全程重头戏！港版马尔代夫</span></div>
+      <span class="d-who who-all" data-page-node-id="1262zF16ay36U3pHPgOf65">全员同行</span>
+      <span class="arrow" data-page-node-id="7qIbVBReERPk22pWrhvvR2">▼</span>
+    </div>
+    <div class="day-body" data-page-node-id="mUV707dgdqDIPRUXTP2Egy"><div class="day-body-inner" data-page-node-id="RLoChf9MXdmnadRnCSaqvQ">
+      <p data-page-node-id="DHjfxVbAlmS9dOGHoibrIR">麦理浩径全长约100公里分10段，今天只走风景最好、交通最方便的<strong data-page-node-id="mgczjHxA0xvKplB9nlA7Ps">第1+2段</strong>（约20-24公里，可按体力调整）。</p>
+      <h4 data-page-node-id="P2Dcy8vLW8sxkIP3cyw7w4">⛰️ 路线安排 <span class="tag tag-view" data-page-node-id="yovcuBKQKogxpDUX19w197">好看</span><span class="tag tag-free" data-page-node-id="UvIQqn0v3tk5clXBJX4FRz">免费</span></h4>
+      <ul class="timeline" data-page-node-id="QxqcDXtRagP8zQD6v4vY1a">
+        <li data-page-node-id="BYiuE51mZI3I8gSWTHDosU"><b data-page-node-id="Ui504Gr0WVwbQnFsobNJjS">08:00</b> 西贡市中心乘94号巴士 / 96R（假日）或的士到<strong data-page-node-id="vzNu2tpLXL9FKs1Pm7IyKS">北潭涌</strong>（起点）</li>
+        <li data-page-node-id="c03KGVoYTebmdjnNxePGXc"><b data-page-node-id="BxrFZSglvb79Iu2CbWq1Oo">上午</b> <strong data-page-node-id="CISx7Q9foHUEyJM8TgC5ts">第1段（10.6km，3-4小时）</strong>：北潭涌 → 万宜水库东坝（六角岩柱超震撼）→ 浪茄湾</li>
+        <li data-page-node-id="DU0bafdsBIVDY4Ahc3Bp9q"><b data-page-node-id="EmUX0jUmfuY2QRWZtGguLg">下午</b> <strong data-page-node-id="4BuuziDECWdcImB7PLMGSu">第2段精华（可选完整或半段）</strong>：浪茄 → 西湾 / 咸田湾白沙滩（港版马尔代夫）</li>
+        <li data-page-node-id="DooNCpz5wyLEOzGEgjOGfn"><b data-page-node-id="MX2DluC3TBVM1p8dGkFkb8">傍晚</b> 从西湾/咸田或北潭凹坐村巴/的士回西贡，海鲜街晚餐犒劳大家，回市区收拾行李</li>
+      </ul>
+      <div class="tip" data-page-node-id="JfbYa2zlbrSsevEokWULB4">🎒 体力好走完整第1+2段；一般就走第1段+浪茄湾。11月天气绝佳，带够水和防晒。<strong data-page-node-id="jq2iHqNluG0F9iOH2kgngO">今晚是香港最后一晚，行李提前收好</strong>。</div>
+      <div class="daily-cost" data-page-node-id="vIFeKZjl7NPjQFMMUjJl2g">当日参考（不含吃）：交通约80-120元 + 住宿450元 ≈ <strong data-page-node-id="qXgR3s5mN5YzesWjRZdG31">530-570元</strong></div>
+    </div></div>
+  </div>
+
+  <!-- Day 6 -->
+  <div class="day-card" id="day6" data-page-node-id="JHnEyHDHZTCfAwi1NjBo1U">
+    <div class="day-header" onclick="toggleDay('day6')" data-page-node-id="BHGWZBSQXDMaJXsrXpzmLm">
+      <span class="d-emoji" data-page-node-id="HeRoQ7drb77SiOYCAMocH6">🎡</span>
+      <div class="d-title" data-page-node-id="jLhLVftftnbbRCNcVdvuBX"><b data-page-node-id="xssvMNtLUhHEXQH2UYrVbn">Day 6 · 11月8日（周日）珠海存包 → 澳门一日精华</b><span data-page-node-id="jpJxt7AhYcbdjml5hg5DAp">轻装上阵，一天逛透澳门</span></div>
+      <span class="d-who who-all" data-page-node-id="AySAVy0k80mTsyDnggr5AO">全员同行</span>
+      <span class="arrow" data-page-node-id="M6yzmV0yJBVSVC0gX2U1ss">▼</span>
+    </div>
+    <div class="day-body" data-page-node-id="U1i81cywsMQC2nLB58sAO0"><div class="day-body-inner" data-page-node-id="cPpkJy6hwEJ5DONUPcjjWV">
+      <h4 data-page-node-id="5fyMsQEpE6jmWNknJzM0AW">🧳 上午：珠海存包</h4>
+      <ul class="timeline" data-page-node-id="WlGJtxUfcbTJOyKmXgIEMr">
+        <li data-page-node-id="brp7vejaFahrGObKxFBFGC">早上从香港<strong data-page-node-id="8Dh2h8NB3uNZUBszs6g95a">港珠澳大桥口岸</strong>坐金巴到珠海口岸（约HK$65，八达通/支付宝可付）</li>
+        <li data-page-node-id="ZBuJyR90RuanwNAG7qiAZu">珠海酒店订在<strong data-page-node-id="LrHf3Q4vWeUYOgQl8RtQ3m">拱北口岸附近</strong>：先寄存大件行李（多数酒店可免费寄存），<strong data-page-node-id="lXZQAOqDmVCkEcXDq9zVQI">只带小包+证件</strong>过关</li>
+      </ul>
+      <h4 data-page-node-id="CW6wck4e1L2IAZcYg9n0Ew">🕌 11:00-14:30 · 澳门半岛 <span class="tag tag-free" data-page-node-id="EypFyNm4xc6xFfucts0KU6">全免费</span><span class="tag tag-view" data-page-node-id="FAJnPubvg89dxLdlx5qtXH">好看</span></h4>
+      <ul class="timeline" data-page-node-id="c1MsZdx4WEN51S905giLTs">
+        <li data-page-node-id="HWxj6Eh2jMsdfOxQEQFBXI">拱北口岸/青茂口岸过关（<strong data-page-node-id="iqyo0J2imDH2bMUOgeHKKW">尽量10点前到口岸，周日人多</strong>）</li>
+        <li data-page-node-id="7ZXhfqestHvcueKUWKp9Yj">妈阁庙 → 议事亭前地 → 恋爱巷 → 大三巴 → 大炮台，世界遗产核心区，步行一路串联</li>
+      </ul>
+      <h4 data-page-node-id="HMol9erjCJuTuGkJI9ajnK">🚌 15:00-19:30 · 路氹金光大道 <span class="tag tag-free" data-page-node-id="QjkHkrVFoGCa0oPMzCN1Hp">免费看</span><span class="tag tag-high" data-page-node-id="Av7GDHrMaV2oUqVjuYNFiE">好玩</span></h4>
+      <ul class="timeline" data-page-node-id="PnOVqVrHeeTrlmJ71Sw1kH">
+        <li data-page-node-id="JyS5OB2uoJmMwtOFEOzpFw">午餐后坐<strong data-page-node-id="QYvAzIN8GF4Hg0iutlABRl">免费发财车</strong>（新葡京/外港码头站台上车）去路氹</li>
+        <li data-page-node-id="U6CqnbKMpOT4dZPE8x54wR">威尼斯人（贡多拉运河）→ 巴黎人（半个埃菲尔铁塔）→ 伦敦人 → 银河（水晶喷泉），一路免费看</li>
+        <li data-page-node-id="WdLAPHt7LtxCkCBXcH9k1S"><b data-page-node-id="iyJiWwR6eTEbYREycQbMhG">19:30</b> 发财车回关闸/拱北，过关回珠海</li>
+        <li data-page-node-id="j40DHG5MKdBuqDAgZ53Xqi"><b data-page-node-id="IS7Wh1oVPAacX4KdtwEb1T">20:30</b> 回酒店取行李/入住，好好休息</li>
+      </ul>
+      <div class="tip tip-warn" data-page-node-id="0M3r6zC6XE37cIUFQ6t2wK">⚠️ <strong data-page-node-id="iFOKp5NsBZNW6c5RGShaGY">过关提醒</strong>：澳门签注一次有效，别出关又想再进；周日傍晚拱北口岸人最多，可以逛到 20:30 后错峰回来；澳门用微信/支付宝/港币都行，不用专门换钱。</div>
+      <div class="daily-cost" data-page-node-id="eXFo8lCUq62oc02A5gd3Q7">当日参考（不含吃）：金巴约60元 + 澳门本地交通≈0（发财车）+ 住宿180元 ≈ <strong data-page-node-id="SRw331iCeZd05aHkLwJXjB">250元</strong></div>
+    </div></div>
+  </div>
+
+  <!-- Day 7 -->
+  <div class="day-card" id="day7" data-page-node-id="HRmAY1R7mZlBXq0whCNTmG">
+    <div class="day-header" onclick="toggleDay('day7')" data-page-node-id="OPGgB3Hv9gCor9LhlGrRXo">
+      <span class="d-emoji" data-page-node-id="UClget9OP8szzVR7HI565C">🌅</span>
+      <div class="d-title" data-page-node-id="blBLVYcU878QprkVPukz3L"><b data-page-node-id="EzHouCchfDVBvjqPFDHP74">Day 7 · 11月9日（周一）珠海慢游 / 返程</b><span data-page-node-id="IW2w8TrznkV6LTxqZfIrGN">海边慢悠悠，完美收尾</span></div>
+      <span class="d-who who-all" data-page-node-id="muzKbi9r5IYuc56p85Sqjt">全员同行</span>
+      <span class="arrow" data-page-node-id="snemDuMlbn5tEGGdsdPb9D">▼</span>
+    </div>
+    <div class="day-body" data-page-node-id="eJTdtWsBhqwW3C6RYfZ4OE"><div class="day-body-inner" data-page-node-id="HoFrorvZAV5TMfj1GkAsjn">
+      <h4 data-page-node-id="Iyr79dEUG1fh0PnOVWGHc4">🌊 早晨：情侣路 + 珠海渔女 <span class="tag tag-free" data-page-node-id="XgEL1l3rruq1i1si5welRT">免费</span><span class="tag tag-view" data-page-node-id="mdjBmZTWEzWCR36fmZCVKQ">好看</span></h4>
+      <ul class="timeline" data-page-node-id="31vCUzcstq91YoBqxVfMAT"><li data-page-node-id="3xONpPL9gtiOekVJRH7wV1">早晨海边散步最舒服，渔女雕像打卡</li></ul>
+      <h4 data-page-node-id="CxFvJc4FojGZCyIG93Me7E">🐚 中午前：日月贝（珠海大剧院）<span class="tag tag-free" data-page-node-id="lw2FojbnHmrUh7e6oSzkkG">免费外观</span></h4>
+      <ul class="timeline" data-page-node-id="mSFUpZvW79WAZCMOfIebmp">
+        <li data-page-node-id="T6qedC8lLUTACDkFuo5uYY">建筑超出片，拍完照回拱北最后逛一圈</li>
+        <li data-page-node-id="2JEXG7TsrUeyODQXKO9VIl">中午前退房，各自根据回程车次/航班安排离开</li>
+      </ul>
+      <div class="daily-cost" data-page-node-id="3ec6fDf33iKaMr62ku5WKb">当日参考（不含吃）：本地交通约30元 ≈ <strong data-page-node-id="NlGPfOWx9fZMD1DxpAN6zs">30元</strong></div>
+    </div></div>
+  </div>
+
+  <!-- 装备清单 -->
+  <div class="section" id="gear" data-page-node-id="zLz2IiUK6l1r5P9e8FcoFy">
+    <h2 data-page-node-id="DL1G9ninENC48Vppvt3XR9"><span class="ico" data-page-node-id="Z1HWeVQAo8KomOUtUcr3VP">🎒</span>麦理浩径装备清单（勾一件少一件）</h2>
+    <p style="color:var(--ink-light);font-size:0.92rem;" data-page-node-id="8O8krwk9ism0c1DcXiBhuL">周六用。打勾状态会自动保存，出发前全部勾完就可以出发啦！</p>
+    <div class="gear-grid" data-page-node-id="UEsh3BWKroYGsbrJN27WBD">
+      <label class="gear-item" data-page-node-id="mLTwhpHCCmUy7WmG0C6MaV"><input type="checkbox" class="ck" data-page-node-id="ctYXvUlBuLn5GusQi26f31"><span class="box" data-page-node-id="918fKD1yFW4h86RtmVXa9x">✓</span><span class="g-txt" data-page-node-id="zzTrSUEq48XJ9oOshAWJin">20-30L 轻量背包</span></label>
+      <label class="gear-item" data-page-node-id="iwvu45PVAWIX2AhgjHrLG6"><input type="checkbox" class="ck" data-page-node-id="MBzHeQVHCyzcZmjnnRFXjK"><span class="box" data-page-node-id="PGxOxiM0W2DCCJEdAjoqfN">✓</span><span class="g-txt" data-page-node-id="6w95Wf43OW17cZwruR9HHH">越野跑鞋/防滑徒步鞋（抓地力很重要）</span></label>
+      <label class="gear-item" data-page-node-id="kTv81wPCvTrHVe21KcaxWG"><input type="checkbox" class="ck" data-page-node-id="F4ZOijCbpzsC1AMEQtfQnI"><span class="box" data-page-node-id="zyGkNkEVOVAL545H8tKuMX">✓</span><span class="g-txt" data-page-node-id="l3G1Z6DqgSVZhpt4J46KAn">速干T恤 + 短裤/长裤</span></label>
+      <label class="gear-item" data-page-node-id="ZbgqEa0NNBeEDYrkTXvqdg"><input type="checkbox" class="ck" data-page-node-id="JbfxYKJCt9FX226r6B4pVa"><span class="box" data-page-node-id="FIWobUpEScS00xME7gFCEW">✓</span><span class="g-txt" data-page-node-id="Ialg6aieE5N98vxFZ5NcrJ">防晒帽 + 墨镜</span></label>
+      <label class="gear-item" data-page-node-id="BUUFECbNqewS258YKmP3ci"><input type="checkbox" class="ck" data-page-node-id="hbw59VzbcEWkOuSig9ajYW"><span class="box" data-page-node-id="ixhb6cVC3ajuhAPysztC9t">✓</span><span class="g-txt" data-page-node-id="tn9DHiDnlZZzQsNnQj1IW9">薄冲锋衣/雨衣 + 一层抓绒</span></label>
+      <label class="gear-item" data-page-node-id="WNGoksmdOpkufPaHHa7mwt"><input type="checkbox" class="ck" data-page-node-id="goqfxkW9HhjHDxZYeHU2EF"><span class="box" data-page-node-id="3q9gYKuqHNuBY0eSNl8V0e">✓</span><span class="g-txt" data-page-node-id="LyiRpMA9VbYUhyZqKTUe8h">2-3升水 + 电解质</span></label>
+      <label class="gear-item" data-page-node-id="KWl6EYlEpiHQ8g9U5TXCx5"><input type="checkbox" class="ck" data-page-node-id="lytPIblsBp6Vqch7wG9TpJ"><span class="box" data-page-node-id="DVFRkz1cCywKAPnSGAHaWU">✓</span><span class="g-txt" data-page-node-id="Z2GOnuS4HM3s4lxxDBZMJA">能量棒 + 简单午餐</span></label>
+      <label class="gear-item" data-page-node-id="UdsAR4hZI0npMQ8H9UzkdF"><input type="checkbox" class="ck" data-page-node-id="lcLkjIYkfkVIgeZSk3KQYg"><span class="box" data-page-node-id="gBMiUJ0hvzRtYru2GhNSlq">✓</span><span class="g-txt" data-page-node-id="HI16xX0xB1qIa8DL9VIvMb">登山杖（强烈推荐）</span></label>
+      <label class="gear-item" data-page-node-id="22BzDbwKCnI1APE1I06su9"><input type="checkbox" class="ck" data-page-node-id="aLhZHYRiDoiSG6ylU5jjoN"><span class="box" data-page-node-id="3niwcS7vrC1i1UIacPy997">✓</span><span class="g-txt" data-page-node-id="DQkHj8WF8u2sR1aC4AuMvn">头灯 + 急救包</span></label>
+      <label class="gear-item" data-page-node-id="PfUO1IDWY6rExR4LNqDTT1"><input type="checkbox" class="ck" data-page-node-id="Ec1N3wj1vvTJRDJFEGc8kv"><span class="box" data-page-node-id="An1rI9W2FN3zT7MNwDgQeQ">✓</span><span class="g-txt" data-page-node-id="BWPCrNE8VJADLHXRHPaEHj">防晒霜 + 驱蚊液</span></label>
+      <label class="gear-item" data-page-node-id="CV6M2bN9bwEBQWI7jDgL7z"><input type="checkbox" class="ck" data-page-node-id="OMkGPPtkByZ8sVwx4EboMc"><span class="box" data-page-node-id="cknWbuVTt9G8E8upc3DOLo">✓</span><span class="g-txt" data-page-node-id="WmE1TtDOkaHEdC01hARJmC">手机满电 + 充电宝</span></label>
+      <label class="gear-item" data-page-node-id="AgUUbPjL1Qr6YPiAo5OBDR"><input type="checkbox" class="ck" data-page-node-id="1Rl6qa7iSDctqOyi0E5i04"><span class="box" data-page-node-id="mMWKqOwfbvU9scJsi0yVwR">✓</span><span class="g-txt" data-page-node-id="IZXLDCi1HhnHVyFwDAL0Qa">离线地图/GPX 已下载</span></label>
+      <label class="gear-item" data-page-node-id="DZTJPXb91UitSMObCJyTCJ"><input type="checkbox" class="ck" data-page-node-id="6pAphNg3n7HAKmJtH5Y1ct"><span class="box" data-page-node-id="QADBOu5H0MJbxAXOgoPak7">✓</span><span class="g-txt" data-page-node-id="aeBMMgwiggpWfY1hmt87Vo">湿纸巾 + 垃圾袋</span></label>
+      <label class="gear-item" data-page-node-id="vMTPlaJfhRYB3uhqDbVlcG"><input type="checkbox" class="ck" data-page-node-id="O0lL5NrQZc2pLafibcjX9D"><span class="box" data-page-node-id="rUtDoKbffp0zdCeDanJyVW">✓</span><span class="g-txt" data-page-node-id="dNKTDx7EDSMtyuUQlfFXDh">少量现金</span></label>
+    </div>
+    <div class="tip" data-page-node-id="mmBycfIxSCVp7A4gvTPOm7">🥾 沿途有标距柱（M001-M200），迷路就找最近的标距柱报位置。周日还要去澳门暴走，周六量力而行！</div>
+  </div>
+
+  <!-- 麦径10段表 -->
+  <div class="section" data-page-node-id="EqETIzWnGbAWkm1MRFO0Ag">
+    <h2 data-page-node-id="dmFfkLKpat8YPsFWWVxWZh"><span class="ico" data-page-node-id="5R2y4akHfQqKNPzy8swuGK">🗺️</span>麦理浩径 10 段一览（进阶参考）</h2>
+    <p style="color:var(--ink-light);font-size:0.92rem;" data-page-node-id="0mW7lkrS0oZFjYAe4Gv1CC">这次走第1+2段。以后想来挑战全程，看这张表。</p>
+    <table data-page-node-id="LyUHQXrAV3wWYTu59RJvvz">
+      <tbody data-page-node-id="vCSWO2aOwt8xAeJCfAr0ru"><tr data-page-node-id="1xHAIhGD6AkjzR3wK9mnPT"><th data-page-node-id="RfYrkVKWvji0ffXeNHLkQY">段</th><th data-page-node-id="5yGefLArn1xL815o7i7Xmr">起终点</th><th data-page-node-id="HGuNtH3295lASFgkyZeUet">距离</th><th data-page-node-id="hXOYyf1p7PjubmXpIfhHpE">时间</th><th data-page-node-id="Gyekvz7wI1woOFm1FmTxst">难度</th><th data-page-node-id="Otb9bHDQ8mcSPPURlKvanO">亮点</th></tr>
+      <tr data-page-node-id="TQWI7H2JGs2r1FKgdG8fht"><td data-page-node-id="rqZv7ubWJ5lWQEUozsNGe3">1</td><td data-page-node-id="DtqEPBF5yEGGxdDdRq3HRm">北潭涌→浪茄</td><td data-page-node-id="AVHHOjAgLtgxCJBS6aik9Y">10.6km</td><td data-page-node-id="cOSQHE8TQ6uPkVgyV2JiGs">3-4h</td><td data-page-node-id="SReOGhZGRZR0B8Cxcc1Rwo">★★☆</td><td data-page-node-id="08USVPQJq8L0YedZUwIsTM">万宜水库、六角岩柱</td></tr>
+      <tr data-page-node-id="1BXMIc9PvjO3cwClStX8Qs"><td data-page-node-id="orKuqYuHgftzFLkiiDxmiL">2</td><td data-page-node-id="YwRb0t4Zzr2vFaw9QmzmKI">浪茄→北潭凹</td><td data-page-node-id="pplFRRcdZA3SVdWEvDSJFv">13.5km</td><td data-page-node-id="FJAqyv3r7ytl4C7MmLe362">5-6h</td><td data-page-node-id="KQlmx7hyGsVVeJbBZRf07M">★★★★</td><td data-page-node-id="y0stprhOrTeprsKEgiRarg">西湾、咸田湾白沙滩（最美）</td></tr>
+      <tr data-page-node-id="5wOfnbXJkCelspC6aDGafg"><td data-page-node-id="msr6AXTI6vuzIKKRMfiLMe">3</td><td data-page-node-id="6flfWT0genUOQFK6Wkwt8Y">北潭凹→企岭下</td><td data-page-node-id="sz5neUobwxuWjQCLQNEgim">10.2km</td><td data-page-node-id="dMpHZcd27q5o4DrgsBwhKs">4-5h</td><td data-page-node-id="v2K64xPEVFIyS9mMtezmHn">★★★★</td><td data-page-node-id="IavfAXPOWdvhUjj3Flswsp">牛耳石山、嶂上</td></tr>
+      <tr data-page-node-id="oWCvSlaknFGwWyif3iCYlL"><td data-page-node-id="vEjVabNGaWdLa9GBASwnjJ">4</td><td data-page-node-id="UEWd7LP1eoaa60DrkOepxy">企岭下→大老山</td><td data-page-node-id="RZ13m5K2BFVbn7yAgmS74D">12.7km</td><td data-page-node-id="zKfudn8gq6FTRAk0NSGVNK">5-6h</td><td data-page-node-id="YY8TZl2kvRSA2zYIiDlyBH">★★★★★</td><td data-page-node-id="vGEiN8eoJUAldRDXBwJqt6">马鞍山、昂平草原（最难）</td></tr>
+      <tr data-page-node-id="0eYbDBdkVDsRMt5JAi5mOG"><td data-page-node-id="xgcPBkc4sUYtrvlqYvhdK3">5</td><td data-page-node-id="bmBaEWdAZY6l1EzSHr6usE">大老山→大埔公路</td><td data-page-node-id="ir2EaBGqoxm7BFTxmdh3LH">10.6km</td><td data-page-node-id="0stHT6XYarCrK7ioLDjkwA">3-4h</td><td data-page-node-id="DxSwIloVCNGdOnLxJvzOfj">★★★</td><td data-page-node-id="bo6iW32UClQvb7B50jc0M8">狮子山、九龙全景</td></tr>
+      <tr data-page-node-id="miJ9QQtDJ3yqXuvE232xwe"><td data-page-node-id="XlMuN7mqerLBdOUmdEemQf">6</td><td data-page-node-id="8Xrgr5zBqej9NOWoAvlDv3">大埔公路→城门</td><td data-page-node-id="jJ0dDIxfROaHuxRc5H2eOL">4.6km</td><td data-page-node-id="WGBzzStlwDAxrZFDNmmyDw">1.5-2h</td><td data-page-node-id="LWsWr1rFEzCzbzLpH40NUY">★☆</td><td data-page-node-id="yB2pIIygIehINjb3DvyAie">城门水塘、轻松</td></tr>
+      <tr data-page-node-id="grhfCEZPZKQZU7xYPolNaf"><td data-page-node-id="8xNabzHuZxHr3w7ZGxsBTY">7</td><td data-page-node-id="DL2FdwymoZkf5MTXV6CSbq">城门→铅矿坳</td><td data-page-node-id="zVlsbUrdrnETqIEY64IGMl">6.2km</td><td data-page-node-id="Ed7H9S2aKkg2ZGebaMzzU1">3-4h</td><td data-page-node-id="AWf84hhd9RhNmqT3EorSjZ">★★★</td><td data-page-node-id="fIn6WsLDxaWsPWMjuJEl3d">针山、草山</td></tr>
+      <tr data-page-node-id="tSnvCUeDGZvtoXfu2xSnNj"><td data-page-node-id="RXoYAkoSbQDFArWwkLQOKj">8</td><td data-page-node-id="gjilfyYy1o0zvguOhIs1yt">铅矿坳→荃锦公路</td><td data-page-node-id="gaBlC51inFMuviBb49CnPQ">9.7km</td><td data-page-node-id="E8kXZVKCAtbKV9DYYRM6E6">4-5h</td><td data-page-node-id="eoGVPyF5pPCkh6kW4kYb5A">★★★</td><td data-page-node-id="8laKu3wt2EVE3d3dlq1Xrv">大帽山（全港最高957m）</td></tr>
+      <tr data-page-node-id="PwQ7HjwCYm2wxXzJbxtN5A"><td data-page-node-id="xPv0GAaAEWeGI0TPUnZsnu">9</td><td data-page-node-id="YDMZggG1pjXhDGYoXg5vn3">荃锦公路→田夫仔</td><td data-page-node-id="v9MRccHMTasn2lNbgAEsOT">6.3km</td><td data-page-node-id="ChOBDwXA27vUGOaKHvEXwA">2-3h</td><td data-page-node-id="HOv8HaFpk2iol8cxbZ4jRC">★☆</td><td data-page-node-id="w9JXF6Xu6G59WdjNt5kFt1">林荫径、轻松</td></tr>
+      <tr data-page-node-id="QbbRB5fZwa3GoHyBTJoC6Z"><td data-page-node-id="E4fXfnwaSYNmnCl4t1Pn7q">10</td><td data-page-node-id="HBk8IGpXHa9Xx4Cx3laSUQ">田夫仔→屯门</td><td data-page-node-id="jjdJzf9bFqZfHOBuftSetk">15.6km</td><td data-page-node-id="XTpxW6S8hY0cyHfuTfUC2r">4-5h</td><td data-page-node-id="DiYyszo73qG5rlXpX2EqOK">★★★</td><td data-page-node-id="RFE8o6C9jkk2zTal80meBK">大榄涌水塘</td></tr>
+    </tbody></table>
+  </div>
+
+  <!-- 预算 -->
+  <div class="section" id="budget" data-page-node-id="ARqJsOpnRPd3H5DEtogmAs">
+    <h2 data-page-node-id="iz76RRf3cCkMBUF5B3pB8r"><span class="ico" data-page-node-id="jhxsJPFtB0mZtFfDRSaqA3">💰</span>预算参考（人均，不含吃）</h2>
+    <div class="cost-box" data-page-node-id="YLhYIcRDgkO1fm2Z9R1Qdh">
+      <p data-page-node-id="NsToNwKYKTEXAadUMl3Pj0"><strong data-page-node-id="gLfS8mw0BPQDOVGOBIILjA">总预算目标：2000-2500元</strong></p>
+      <ul data-page-node-id="KzdjN0wUi7XVPFa0iLdnqp">
+        <li data-page-node-id="WaKUFebaIgssOA7tWqrTDq">🏨 住宿（6晚）：约 1300-1600元</li>
+        <li data-page-node-id="jQrDYDc9qw4mXwGwRFFlg3">🚄 城际交通（含金巴）：约 300-400元</li>
+        <li data-page-node-id="XHNDIyMMTzDSVbcqqRt9Fv">💳 本地交通 + 八达通：约 200-300元</li>
+        <li data-page-node-id="wCC3MddMlAjtzQPpztEdy3">🎫 必要门票（太平山顶套票）：约 170元</li>
+        <li data-page-node-id="oU2IxAK9SJzCyTegzW28R4">🥾 麦理浩径：几乎全免费（仅交通）</li>
+        <li data-page-node-id="bSN1ANpCC1ZEGYDCNTzEuc">🎡 澳门：免费路线 + 发财车 ≈ 0元门票</li>
+      </ul>
+      <p style="margin-top:12px;color:var(--teal-deep);font-weight:600;" data-page-node-id="MTm09RHYO9glotfZrKfTo0">大量免费高价值景点 + 一天精华澳门，把钱都花在刀刃上。</p>
+    </div>
+  </div>
+
+  <!-- 最后提示 -->
+  <div class="section" data-page-node-id="GoDcnB1LScFddzggwj4qgi">
+    <h2 data-page-node-id="g1rGI5bIPWpbYPGh224kWH"><span class="ico" data-page-node-id="uKAIv9HgZtPvHmUfBRFiKe">🌈</span>最后的小纸条</h2>
+    <div class="tip" data-page-node-id="xGmw3oL0GPbw2p1YrMQum2">
+      ✅ 证件：港澳通行证 + 香港签注 + 澳门签注（各一次即可）<br data-page-node-id="LuWDXalnAwTV5YcGGmAUvS">
+      💳 支付：微信/支付宝三地基本通用，香港备少量港币<br data-page-node-id="SheJMuGEeuyE5TSmV10fp7">
+      🎫 八达通：旅客版约39港币，充值200-300够全程<br data-page-node-id="6T0DPPbCB4GJrxZ2uOGwsK">
+      📱 集合制度：自由探索日晚上 22:00 酒店会合，白天随时电话联系<br data-page-node-id="j9WSu4855dqV4uwLvXe0bs">
+      🥾 麦理浩径：早出发、带够水、防滑鞋、离线地图<br data-page-node-id="WNRQ89GlC65jXuLNt5drVd">
+      🧳 周日澳门：大件行李存珠海酒店，轻装过关
+    </div>
+    <p style="text-align:center;margin-top:18px;font-size:1.05rem;color:var(--teal-deep);font-weight:600;" data-page-node-id="4qkaaCofBTPCeniw2KBz5X">
+      一路顺风，玩得开心，多拍点好看的照片 📸💗
+    </p>
+  </div>
+
+</div>
+
+<button id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" data-page-node-id="O0lnD8WAgZYV9WmetgDsTp">↑</button>
+
+<footer data-page-node-id="jCCuRtxCQMyEN2VKaMz79u">
+  深圳 → 香港 → 珠海 → 澳门 · 七天治愈之旅<br data-page-node-id="1AYYFyc3AvLeINY5BdnLAY">
+  人均 2000-2500 元（不含吃）· 愿这七天成为你们共同的美好回忆
+</footer>
+
+<script data-page-node-id="VFilkVlfJPT32bRTtwoar1">
+  // ===== 折叠日程 =====
+  function toggleDay(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+
+  // ===== 打卡存储 =====
+  const STORE_KEY = 'gja_trip_checks_v3';
+  function loadChecks() {
+    try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch(e) { return {}; }
+  }
+  function saveChecks(obj) {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(obj)); } catch(e) {}
+  }
+  const checks = loadChecks();
+
+  const emojis = ['✨','🎉','🌟','💫','🎈','🥳','🌸'];
+  function bindCheckbox(input) {
+    const label = input.closest('label') || input.parentElement;
+    const text = (label ? label.textContent : '').trim().slice(0, 40);
+    const key = text;
+    if (checks[key]) { input.checked = true; }
+    input.addEventListener('change', () => {
+      checks[key] = input.checked;
+      saveChecks(checks);
+      updateProgress();
+      if (input.checked) {
+        const pop = document.createElement('div');
+        pop.className = 'pop';
+        pop.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        const r = input.getBoundingClientRect();
+        pop.style.left = (r.left + window.scrollX) + 'px';
+        pop.style.top = (r.top + window.scrollY - 10) + 'px';
+        document.body.appendChild(pop);
+        setTimeout(() => pop.remove(), 950);
+      }
+    });
+  }
+  document.querySelectorAll('input[type="checkbox"]').forEach(bindCheckbox);
+
+  // ===== 进度环 =====
+  function updateProgress() {
+    const all = document.querySelectorAll('input[type="checkbox"]');
+    const done = document.querySelectorAll('input[type="checkbox"]:checked').length;
+    const pct = all.length ? Math.round(done / all.length * 100) : 0;
+    document.getElementById('ringNum').textContent = pct + '%';
+    document.getElementById('ringBar').style.strokeDashoffset = 144.5 * (1 - pct / 100);
+    document.getElementById('checkCount').textContent = '已勾选 ' + done + ' 项 · 勾过的会自动记住哦';
+  }
+  updateProgress();
+
+  // ===== 阅读进度条 + 回到顶部 =====
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const pct = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('toTop').classList.toggle('show', h.scrollTop > 500);
+  });
+
+  // ===== 导航高亮（scrollspy）=====
+  const navLinks = document.querySelectorAll('#nav a');
+  const targets = [...navLinks].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const spy = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        navLinks.forEach(a => a.classList.toggle('active',
+          a.getAttribute('href') === '#' + en.target.id));
+      }
+    });
+  }, { rootMargin: '-20% 0px -65% 0px' });
+  targets.forEach(t => spy.observe(t));
+
+  // ===== 点导航自动展开对应日程 =====
+  navLinks.forEach(a => {
+    a.addEventListener('click', () => {
+      const id = a.getAttribute('href').slice(1);
+      const card = document.getElementById(id);
+      if (card && card.classList.contains('day-card')) card.classList.add('open');
+    });
+  });
+</script>
+
+
+</body></html>
